@@ -1,0 +1,21 @@
+[package]
+name = "clock"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+license = "MIT OR Apache-2.0"
+description = "Trait-based time abstraction with mock clock for testing"
+repository = "https://github.com/WyattAu/clock"
+keywords = ["time", "clock", "mock", "testing"]
+categories = ["rust-patterns", "development-tools::testing"]
+
+[dependencies]
+chrono = { version = "0.4", optional = true }
+
+[dev-dependencies]
+proptest = "1"
+tokio = { version = "1", features = ["rt", "time", "macros"] }
+
+[features]
+default = ["chrono"]
+chrono = ["dep:chrono"]
