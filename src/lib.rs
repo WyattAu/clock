@@ -11,6 +11,9 @@
 pub mod real;
 /// Mock clock for testing.
 pub mod mock;
+/// WASM-compatible clock using js_sys::Date.
+#[cfg(feature = "wasm")]
+pub mod wasm;
 
 /// Clock trait for injectable time.
 ///
