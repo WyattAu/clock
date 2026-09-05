@@ -12,7 +12,10 @@ pub mod real;
 /// Mock clock for testing.
 pub mod mock;
 /// WASM-compatible clock using js_sys::Date.
-#[cfg(feature = "wasm")]
+/// WASM clock backend — only available on `wasm32` targets (js-sys calls
+/// panic on native targets, so the module is target-gated, not just
+/// feature-gated).
+#[cfg(all(feature = "wasm", target_arch = "wasm32"))]
 pub mod wasm;
 
 /// Clock trait for injectable time.
