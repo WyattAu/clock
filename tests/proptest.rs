@@ -1,4 +1,4 @@
-use clock::{Clock, mock::MockClock};
+use chronoshift::{Clock, mock::MockClock};
 use proptest::prelude::*;
 
 proptest! {

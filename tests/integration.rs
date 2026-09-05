@@ -1,4 +1,4 @@
-use clock::{Clock, mock::MockClock, real::SystemClock};
+use chronoshift::{Clock, mock::MockClock, real::SystemClock};
 
 #[test]
 fn system_clock_returns_valid_time() {
@@ -50,7 +50,7 @@ fn mock_clock_clone() {
 #[cfg(feature = "chrono")]
 #[test]
 fn chrono_conversion() {
-    use clock::ClockExt;
+    use chronoshift::ClockExt;
     use chrono::Datelike;
     let clock = MockClock::new(1_000_000_000_000_000_000); // ~2001
     let dt = clock.now_chrono();

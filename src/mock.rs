@@ -8,7 +8,7 @@ use crate::Clock;
 ///
 /// # Example
 /// ```
-/// use clock::{Clock, mock::MockClock};
+/// use chronoshift::{Clock, mock::MockClock};
 ///
 /// let clock = MockClock::new(0);
 /// assert_eq!(clock.now_ns(), 0);
