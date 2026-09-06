@@ -10,14 +10,22 @@ keywords = ["time", "clock", "mock", "testing"]
 categories = ["rust-patterns", "development-tools::testing"]
 
 [dependencies]
-chrono = { version = "0.4", optional = true }
+chrono = { version = "0.4", optional = true, default-features = false }
+
 js-sys = { version = "0.3", optional = true }
+
+# Targets without 64-bit atomics (e.g. thumbv7em) fall back to a
+# critical-section-backed lock. The critical-section implementation itself is
+# provided by the final binary (chip HAL), per critical-section convention.
+[target.'cfg(not(target_has_atomic = "64"))'.dependencies]
+critical-section = { version = "1", default-features = false, features = ["restore-state-u8"] }
 
 [dev-dependencies]
 proptest = "1"
 tokio = { version = "1", features = ["rt", "time", "macros"] }
 
 [features]
-default = ["chrono"]
+default = ["std", "chrono"]
+std = []
 chrono = ["dep:chrono"]
 wasm = ["dep:js-sys"]

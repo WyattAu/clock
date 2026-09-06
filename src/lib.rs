@@ -1,16 +1,25 @@
 #![forbid(unsafe_code)]
 #![deny(missing_docs)]
+#![cfg_attr(not(feature = "std"), no_std)]
 
 //! Trait-based time abstraction with a mock clock for testing.
 //!
 //! Provides a `Clock` trait with injectable time, a `SystemClock` for
 //! production, and a `MockClock` for testing. Enables deterministic
 //! time-dependent tests without external clock manipulation.
+//!
+//! # no_std
+//!
+//! The crate builds in `no_std` with `--no-default-features`; only
+//! [`mock::MockClock`] and the [`Clock`] trait are available. The
+//! wall-clock [`real::SystemClock`] requires the `std` feature (on by
+//! default).
 
-/// Real system clock implementation.
-pub mod real;
 /// Mock clock for testing.
 pub mod mock;
+/// Real system clock implementation (requires the `std` feature).
+#[cfg(feature = "std")]
+pub mod real;
 /// WASM-compatible clock using js_sys::Date.
 /// WASM clock backend — only available on `wasm32` targets (js-sys calls
 /// panic on native targets, so the module is target-gated, not just
@@ -55,8 +64,7 @@ pub trait ClockExt: Clock {
         let ns = self.now_ns();
         let secs = ns / 1_000_000_000;
         let nanos = (ns % 1_000_000_000) as u32;
-        chrono::DateTime::from_timestamp(secs, nanos)
-            .unwrap_or_default()
+        chrono::DateTime::from_timestamp(secs, nanos).unwrap_or_default()
     }
 }
 
@@ -64,6 +72,7 @@ pub trait ClockExt: Clock {
 impl<T: Clock> ClockExt for T {}
 
 /// Get a default system clock.
+#[cfg(feature = "std")]
 pub fn system_clock() -> impl Clock {
     real::SystemClock
 }

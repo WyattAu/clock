@@ -1,5 +1,5 @@
-use std::time::{SystemTime, UNIX_EPOCH};
 use crate::Clock;
+use std::time::{SystemTime, UNIX_EPOCH};
 
 /// Real system clock (zero-cost abstraction).
 ///

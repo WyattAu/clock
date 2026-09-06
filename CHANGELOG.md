@@ -5,6 +5,18 @@ Changelog](https://keepachangelog.com/) — versions follow [semver](https://sem
 
 ## [Unreleased]
 
+### Added
+- `no_std` support: build with `--no-default-features` for core-only use
+  (`MockClock` + `Clock` trait). `SystemClock`/`system_clock()` now require
+  the new `std` feature (enabled by default, so default builds are unchanged).
+  Targets without 64-bit atomics (e.g. thumbv7em) get a critical-section-backed
+  `MockClock` fallback; the critical-section implementation is supplied by the
+  final binary per critical-section convention.
+
+### Changed
+- `chrono` dependency is now `default-features = false` (no implicit
+  `std`/`clock` pull-in when using chrono types in `no_std` builds).
+
 ## [0.2.0]
 
 ### Added
