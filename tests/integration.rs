@@ -56,3 +56,28 @@ fn chrono_conversion() {
     let dt = clock.now_chrono();
     assert!(dt.year() >= 2001);
 }
+
+// --- Mutation-killing tests (cargo-mutants triage) ---
+
+#[test]
+fn now_us_divides_by_one_thousand() {
+    // Kills lib.rs now_us mutants: return 0/1/-1, `/`→`%`, `/`→`*`.
+    let clock = MockClock::new(1_500_000);
+    assert_eq!(clock.now_us(), 1500);
+}
+
+#[test]
+fn advance_secs_multiplies_by_one_billion() {
+    // Kills mock.rs advance_secs mutants: body→(), `*`→`+`, `*`→`/`.
+    let clock = MockClock::new(0);
+    clock.advance_secs(2);
+    assert_eq!(clock.get_ns(), 2_000_000_000);
+}
+
+#[test]
+fn get_ns_returns_stored_value() {
+    // Kills mock.rs get_ns mutants: return 0/1/-1.
+    let clock = MockClock::new(0);
+    clock.set_ns(123_456);
+    assert_eq!(clock.get_ns(), 123_456);
+}

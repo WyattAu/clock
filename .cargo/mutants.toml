@@ -1,0 +1,4 @@
+# src/wasm.rs is `#[cfg(all(feature = "wasm", target_arch = "wasm32"))]`-gated:
+# js-sys calls panic under the native test harness, so its mutants cannot be
+# killed host-side (needs a wasm-bindgen-test harness to cover).
+exclude_globs = ["src/wasm.rs"]
