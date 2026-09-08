@@ -23,6 +23,11 @@ critical-section = { version = "1", default-features = false, features = ["resto
 [dev-dependencies]
 proptest = "1"
 tokio = { version = "1", features = ["rt", "time", "macros"] }
+criterion = { version = "0.5", features = ["html_reports"] }
+
+[[bench]]
+name = "head_to_head"
+harness = false
 
 [features]
 default = ["std", "chrono"]
