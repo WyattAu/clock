@@ -8,6 +8,7 @@ description = "Trait-based time abstraction with mock clock for testing"
 repository = "https://github.com/WyattAu/clock"
 keywords = ["time", "clock", "mock", "testing"]
 categories = ["rust-patterns", "development-tools::testing"]
+exclude = ["/target"]
 
 [dependencies]
 chrono = { version = "0.4", optional = true, default-features = false }
@@ -34,3 +35,7 @@ default = ["std", "chrono"]
 std = []
 chrono = ["dep:chrono"]
 wasm = ["dep:js-sys"]
+
+[lints.clippy]
+unwrap_used = "warn"
+expect_used = "warn"
