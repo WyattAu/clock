@@ -10,9 +10,11 @@ pub struct SystemClock;
 
 impl Clock for SystemClock {
     fn now_ns(&self) -> i64 {
+        // Fallback to 0 if the system clock is set before the Unix epoch
+        // (misconfigured machine); a clock library must not panic.
         SystemTime::now()
             .duration_since(UNIX_EPOCH)
-            .expect("system time is before Unix epoch")
+            .unwrap_or_default()
             .as_nanos() as i64
     }
 }
