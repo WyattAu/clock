@@ -59,7 +59,7 @@ pub trait Clock: Send + Sync {
 /// Clock trait with chrono support.
 #[cfg(feature = "chrono")]
 pub trait ClockExt: Clock {
-    /// Current time as chrono DateTime<Utc>.
+    /// Current time as chrono `DateTime<Utc>`.
     fn now_chrono(&self) -> chrono::DateTime<chrono::Utc> {
         let ns = self.now_ns();
         let secs = ns / 1_000_000_000;

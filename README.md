@@ -1,5 +1,9 @@
 # clock
 
+[![docs.rs](https://docs.rs/chronoshift/badge.svg)](https://docs.rs/chronoshift)
+[![crates.io](https://img.shields.io/crates/v/chronoshift.svg)](https://crates.io/crates/chronoshift)
+[![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg)](LICENSE)
+
 Trait-based time abstraction for Rust (`chronoshift`) — injectable clock for
 production code, `MockClock` for deterministic tests. `#![forbid(unsafe_code)]`.
 

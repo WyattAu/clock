@@ -5,6 +5,14 @@ Changelog](https://keepachangelog.com/) — versions follow [semver](https://sem
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-09-11
+
+### Fixed
+
+- 22-gate quality audit pass: documentation completeness
+  (README badges, REQUIREMENTS/THREAT-MODEL coverage) and
+  feature-gated test hygiene.
+
 ### Added
 - `no_std` support: build with `--no-default-features` for core-only use
   (`MockClock` + `Clock` trait). `SystemClock`/`system_clock()` now require

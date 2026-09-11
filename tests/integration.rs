@@ -1,3 +1,4 @@
+#![cfg(all(feature = "std", feature = "chrono"))]
 use chronoshift::{mock::MockClock, real::SystemClock, Clock};
 
 #[test]
